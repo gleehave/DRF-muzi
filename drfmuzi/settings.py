@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'carts',
     'products',
-    'users',
+    'accounts',
     'wishlists',
 ]
 
@@ -160,6 +160,8 @@ CORS_ALLOW_HEADERS = (
 )
 
 APPEND_SLASH = False
+
+AUTH_USER_MODEL = 'accounts.User'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
