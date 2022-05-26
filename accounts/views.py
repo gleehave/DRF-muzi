@@ -1,4 +1,4 @@
-from rest_framework          import generics
+from rest_framework import generics, status
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 
@@ -17,4 +17,4 @@ class SignInView(generics.GenericAPIView):
         token = serializer.validated_data
         return Response({
             "token": token.key
-        })
+        }, status=status.HTTP_200_OK)
