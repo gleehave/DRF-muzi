@@ -16,5 +16,6 @@ class SignInView(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         token = serializer.validated_data
         return Response({
-            "token": token.key
+            "token": token.key,
+            "email": request.data['email']
         }, status=status.HTTP_200_OK)
