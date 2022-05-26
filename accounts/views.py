@@ -1,12 +1,20 @@
-from django.shortcuts import render
-from rest_framework import status
+from rest_framework          import generics
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
-from rest_framework.views import APIView
+
+from accounts.serializers import UserSerializer, SignInSerializer
 
 
 class SignUpAPIView(CreateAPIView):
+    serializer_class = UserSerializer
+
+class SignInView(generics.GenericAPIView):
+    serializer_class = SignInSerializer
+
     def post(self, request, *args, **kwargs):
-
-
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        token = serializer.validated_data
+        return Response({
+            "token": token.key
+        })
