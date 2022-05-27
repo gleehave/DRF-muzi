@@ -27,7 +27,7 @@ class Product(TimeStampedModel):
     thumbnail_image_url   = models.URLField(max_length=2000)
 
     type                  = models.ForeignKey('Type', on_delete=models.CASCADE, related_name='product')
-    tags                   = models.ManyToManyField('Tag', through='TagProduct', related_name='products')
+    tags                  = models.ManyToManyField('Tag', through='TagProduct', related_name='products')
 
     class Meta:
         db_table = 'products'

@@ -19,12 +19,13 @@ class TypeSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ProductSerializer(serializers.ModelSerializer):
-    type = TagSerializer # many=True 옵션이 안먹는다
-    tags = TypeSerializer # many=True 옵션이 안먹는다
+    type = serializers.CharField(source='type.name') # many=True 옵션이 안먹는다
+    tags = serializers.CharField(source='tags.name') # many=True 옵션이 안먹는다
 
     class Meta:
         model = Product
-        fields = '__all__'
+        exclude = ('created_at', 'updated_at')
+        # fields = ['type', 'tags']
 
 class TagProductSerializer(serializers.ModelSerializer):
     tag = TagSerializer(many=True)

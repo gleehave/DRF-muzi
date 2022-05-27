@@ -1,8 +1,8 @@
 from rest_framework             import generics
-from rest_framework.generics import ListAPIView, get_object_or_404
+from rest_framework.generics    import ListAPIView, get_object_or_404
 from rest_framework.permissions import AllowAny
 
-from core.querydebugger import query_debugger
+from core.querydebugger   import query_debugger
 from products.models      import Product
 from products.serializers import ProductSerializer
 
