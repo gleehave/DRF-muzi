@@ -19,8 +19,8 @@ class TypeSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ProductSerializer(serializers.ModelSerializer):
-    type = TagSerializer(many=True)
-    tags = TypeSerializer(many=True)
+    type = TagSerializer # many=True 옵션이 안먹는다
+    tags = TypeSerializer # many=True 옵션이 안먹는다
 
     class Meta:
         model = Product
