@@ -1,6 +1,7 @@
-from rest_framework          import generics, status
-from rest_framework.generics import CreateAPIView
-from rest_framework.response import Response
+from rest_framework             import generics, status
+from rest_framework.generics    import CreateAPIView
+from rest_framework.permissions import AllowAny
+from rest_framework.response    import Response
 
 from accounts.serializers import UserSerializer, SignInSerializer
 from core.querydebugger   import query_debugger
@@ -8,9 +9,11 @@ from core.querydebugger   import query_debugger
 
 
 class SignUpAPIView(CreateAPIView):
+    permission_classes = [AllowAny]
     serializer_class = UserSerializer
 
 class SignInView(generics.GenericAPIView):
+    permission_classes = [AllowAny]
     serializer_class = SignInSerializer
 
     @query_debugger
