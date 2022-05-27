@@ -4,6 +4,8 @@ from rest_framework                          import serializers
 from rest_framework.validators               import UniqueValidator
 from rest_framework.authtoken.models         import Token
 from accounts.models                         import User
+from core.querydebugger                      import query_debugger
+
 
 class UserSerializer(serializers.Serializer):
     email        = serializers.EmailField(max_length=200, validators=[UniqueValidator(queryset=User.objects.all())])
@@ -11,6 +13,7 @@ class UserSerializer(serializers.Serializer):
     username     = serializers.CharField(max_length=254, write_only=True)
     phone_number = serializers.CharField(max_length=50, write_only=True)
 
+    @query_debugger
     def create(self, validated_data):
         user = User.objects.create_user(username=validated_data['username'], email=validated_data['email'])
         user.set_password(validated_data['password'])
@@ -22,6 +25,7 @@ class SignInSerializer(serializers.Serializer):
     email        = serializers.EmailField(max_length=200, required=True)
     password     = serializers.CharField(required=True)
 
+    @query_debugger
     def validate(self, data):
         user = authenticate(**data)
         if user:

@@ -1,8 +1,10 @@
-from rest_framework import generics, status
+from rest_framework          import generics, status
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 
 from accounts.serializers import UserSerializer, SignInSerializer
+from core.querydebugger   import query_debugger
+
 
 
 class SignUpAPIView(CreateAPIView):
@@ -11,6 +13,7 @@ class SignUpAPIView(CreateAPIView):
 class SignInView(generics.GenericAPIView):
     serializer_class = SignInSerializer
 
+    @query_debugger
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
