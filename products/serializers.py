@@ -1,9 +1,4 @@
-from django.contrib.auth import authenticate
-from django.contrib.auth.password_validation import validate_password
 from rest_framework                          import serializers
-from rest_framework.validators               import UniqueValidator
-from rest_framework.authtoken.models         import Token
-from accounts.models                         import User
 from core.querydebugger                      import query_debugger
 from products.models import Product, Tag, Type, Category, TagProduct, ProductOption, Size, Color, Image
 
@@ -58,8 +53,9 @@ class ImageSerializer(serializers.ModelSerializer):
 
 class ProductOptionSerializer(serializers.ModelSerializer):
     product = ProductSerializer(many=True)
-    size = SizeSerializer(many=True)
-    color = ColorSerializer(many=True)
+    size    = SizeSerializer(many=True)
+    color   = ColorSerializer(many=True)
+
     class Meta:
         model = ProductOption
         fields = '__all__'
