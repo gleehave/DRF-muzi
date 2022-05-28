@@ -6,6 +6,7 @@ from rest_framework.views       import APIView
 from carts.models import Cart
 from carts.serializers   import CartSerializer
 from core.logindecorator import login_decorator
+from core.querydebugger import query_debugger
 
 
 class CartAPIView(APIView):
@@ -20,13 +21,12 @@ class CartAPIView(APIView):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    # @login_decorator
+    @login_decorator
+    @query_debugger
     def get(self, request):
         try:
             user_id = request.user.id
-            print('\n')
-            print("user_id: ", user_id)
-            cart = Cart.objects.get(user_id=user_id)
+            cart = Cart.objects.filter(user_id=user_id)
             serializer = CartSerializer(cart, many=True)
             return Response(serializer.data)
         except Cart.DoesNotExist:
