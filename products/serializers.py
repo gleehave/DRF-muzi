@@ -53,9 +53,9 @@ class ImageSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ProductOptionSerializer(serializers.ModelSerializer):
-    product = ProductSerializer(many=True)
-    size    = SizeSerializer(many=True)
-    color   = ColorSerializer(many=True)
+    product = ProductSerializer(read_only=True)
+    size    = SizeSerializer(read_only=True)
+    color   = ColorSerializer(read_only=True)
 
     class Meta:
         model = ProductOption
