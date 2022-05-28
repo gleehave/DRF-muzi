@@ -7,11 +7,14 @@ from accounts.models import User
 def login_decorator(func):
     def wrapper(self, request, *args, **kwargs):
         try:
-            input_token = request.headers.get('Authorization', None)
+            input_token = request.headers.get('Authorization', None)[5:]
             email = request.headers.get('email', None)
             user = User.objects.get(email=email)
             server_token = Token.objects.get(user=user)
+            print("input_token: ", input_token); print("input type:", type(input_token))
+            print("server_token: ", server_token); print("server type:", type(server_token))
 
+            print(input_token == str(server_token))
             if input_token == server_token:
                 request.user = user
             else:

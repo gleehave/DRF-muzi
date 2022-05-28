@@ -20,10 +20,12 @@ class CartAPIView(APIView):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    @login_decorator
+    # @login_decorator
     def get(self, request):
         try:
             user_id = request.user.id
+            print('\n')
+            print("user_id: ", user_id)
             cart = Cart.objects.get(user_id=user_id)
             serializer = CartSerializer(cart, many=True)
             return Response(serializer.data)
