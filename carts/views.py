@@ -1,6 +1,10 @@
+from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.views       import APIView
 
+from carts.models import Cart
+from carts.serializers   import CartSerializer
 from core.logindecorator import login_decorator
 
 
@@ -9,11 +13,22 @@ class CartAPIView(APIView):
 
     @login_decorator
     def post(self, request):
-        pass
+        serializer = CartSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     @login_decorator
     def get(self, request):
-        pass
+        try:
+            user_id = request.user.id
+            cart = Cart.objects.get(user_id=user_id)
+            serializer = CartSerializer(cart, many=True)
+            return Response(serializer.data)
+        except Cart.DoesNotExist:
+            return Response({'error': "Cart_does_not_exist"}, status=status.HTTP_400_BAD_REQUEST)
 
     @login_decorator
     def put(self, request):

@@ -6,7 +6,7 @@ from carts.models         import Cart
 
 class CartSerializer(serializers.ModelSerializer):
     user = UserSerializer
-    product_option = ProductOptionSerializer
+    product_option = ProductOptionSerializer(many=True)
 
     class Meta:
         model = Cart
