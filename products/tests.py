@@ -18,5 +18,10 @@ class ProductTestCase(APITestCase):
             type = self.type
         )
 
-    def test_get_product_list_apiview(self):
-        pass
+    def test_get_product_list_APIView(self):
+        response = self.client.get(f'http://127.0.0.1/product/categories/{self.type.id}/list/')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_Product_detail_APIView(self):
+        response = self.client.get(f'http://127.0.0.1/product/categories/{self.product.pk}/')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
