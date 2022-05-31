@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APITestCase
 
-from products.models import Product, Type, Category, Tag
+from products.models import Product, Type, Category
 
 
 class ProductTestCase(APITestCase):
