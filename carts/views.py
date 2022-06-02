@@ -1,14 +1,12 @@
-from rest_framework import status
+from rest_framework             import status
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
+from rest_framework.response    import Response
 from rest_framework.views       import APIView
 
-from carts.models import Cart
+from carts.models        import Cart
 from carts.serializers   import CartSerializer
 from core.logindecorator import login_decorator
-from core.querydebugger import query_debugger
-from products.models import ProductOption
-from products.serializers import ProductOptionSerializer
+from core.querydebugger  import query_debugger
 
 
 class CartAPIView(APIView):
@@ -18,12 +16,6 @@ class CartAPIView(APIView):
     @query_debugger
     def post(self, request):
         pass
-        # serializer = CartSerializer(data=request.data)
-        # if serializer.is_valid():
-        #     serializer.save()
-        #     return Response(serializer.data, status=status.HTTP_201_CREATED)
-        # else:
-        #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     @login_decorator
     @query_debugger
