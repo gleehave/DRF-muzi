@@ -1,10 +1,9 @@
-from django.urls import reverse
-from rest_framework import status
+from rest_framework                  import status
 from rest_framework.authtoken.models import Token
-from rest_framework.test import APITestCase
+from rest_framework.test             import APITestCase
 
 from accounts.models import User
-from carts.models import Cart
+from carts.models    import Cart
 from products.models import ProductOption, Category, Product, Type, Size, Color
 
 
