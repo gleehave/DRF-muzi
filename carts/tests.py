@@ -43,10 +43,22 @@ class ProductTestCase(APITestCase):
         )
 
     def test_get_cart_APIView(self):
-
         header = {
             'HTTP_AUTHORIZATION' : 'Token ' + self.token.key,
             'HTTP_EMAIL'              : self.user.email
         }
         response = self.client.get(f'http://127.0.0.1/cart/', **header)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_post_cart_APIView(self):
+        header = {
+            'HTTP_AUTHORIZATION' : 'Token ' + self.token.key,
+            'HTTP_EMAIL'              : self.user.email
+        }
+        body = {
+            "user": self.user.pk,
+            "quantity": 1,
+            "product_option": self.productoption.pk
+        }
+        response = self.client.post(f'http://127.0.0.1/cart/', **header, data=body)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
