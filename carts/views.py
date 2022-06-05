@@ -1,15 +1,11 @@
-from rest_framework import status, generics
+from rest_framework             import status, generics
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response    import Response
-from rest_framework.views       import APIView
 
 from carts.models        import Cart
-from carts.serializers import GETCartSerializer, POSTCartSerializer
+from carts.serializers   import GETCartSerializer, POSTCartSerializer
 from core.logindecorator import login_decorator
 from core.querydebugger  import query_debugger
-from products.models import ProductOption, Product, Size, Color
-from products.serializers import ProductOptionSerializer
-
 
 class CartAPIView(generics.GenericAPIView):
     permission_classes = [IsAuthenticated]
