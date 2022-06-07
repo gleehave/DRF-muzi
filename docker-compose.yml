@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  db:
+    image: mysql
+    platform: linux/amd64
+    container_name: main.mysql
+    restart: always
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_general_ci --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: "0000"
+      MYSQL_DATABASE: "drfmuzi"
+      MYSQL_USER: "root"
+      MYSQL_PASSWORD: "abcd1234"
+    ports:
+        - "7001:3306"
+  web:
+    build: ./config
+    container_name: main.django
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./config:/srv/code
+    ports:
+      - "7000:8000"
+    depends_on:
+      - db
