@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-)1c15wbpy$p^@a
 DEBUG = bool(os.environ.get('DJANGO_DEBUG', False))
 
 ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
-django_heroku.settings(locals())
+
 
 # Application definition
 
@@ -62,7 +62,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'drfmuzi.urls'
-
+django_heroku.settings(locals())
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
